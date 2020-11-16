@@ -212,24 +212,24 @@ class Client(X224Layer):
         self.setNextState(self.recvData)
         
         if self._selectedProtocol ==  Protocols.PROTOCOL_RDP:
-            log.warning("*" * 43)
-            log.warning("*" + " " * 10  + "RDP Security selected" + " " * 10 + "*")
-            log.warning("*" * 43)
+            # log.warning("*" * 43)
+            # log.warning("*" + " " * 10  + "RDP Security selected" + " " * 10 + "*")
+            # log.warning("*" * 43)
             #connection is done send to presentation
             self._presentation.connect()
             
         elif self._selectedProtocol ==  Protocols.PROTOCOL_SSL:
-            log.info("*" * 43)
-            log.info("*" + " " * 10  + "SSL Security selected" + " " * 10 + "*")
-            log.info("*" * 43)
+            # log.info("*" * 43)
+            # log.info("*" + " " * 10  + "SSL Security selected" + " " * 10 + "*")
+            # log.info("*" * 43)
             self._transport.startTLS(ClientTLSContext())
             #connection is done send to presentation
             self._presentation.connect()
     
         elif self._selectedProtocol == Protocols.PROTOCOL_HYBRID:
-            log.info("*" * 43)
-            log.info("*" + " " * 10  + "NLA Security selected" + " " * 10 + "*")
-            log.info("*" * 43)
+            # log.info("*" * 43)
+            # log.info("*" + " " * 10  + "NLA Security selected" + " " * 10 + "*")
+            # log.info("*" * 43)
             self._transport.startNLA(ClientTLSContext(), lambda:self._presentation.connect())
 
 class Server(X224Layer):

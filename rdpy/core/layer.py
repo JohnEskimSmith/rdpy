@@ -198,7 +198,10 @@ class RawLayer(protocol.Protocol, LayerAutomata, IStreamSender):
         @param data: string data receive from twisted
         """
         #add in buffer
-        self._buffer += data
+        if data:
+            self._buffer += data
+        else:
+            FileDescriptor.loseConnection(self.getDescriptor())
         #while buffer have expected size call local callback
         while self._expectedLen > 0 and len(self._buffer) >= self._expectedLen:
             #expected data is first expected bytes
@@ -207,7 +210,7 @@ class RawLayer(protocol.Protocol, LayerAutomata, IStreamSender):
             self._buffer = self._buffer[self._expectedLen:]
             #call recv function
             self.recv(expectedData)
-            
+
     def connectionMade(self):
         """
         @summary: inherit from twisted protocol

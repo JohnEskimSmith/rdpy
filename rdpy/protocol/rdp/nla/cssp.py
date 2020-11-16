@@ -205,8 +205,11 @@ class CSSP(protocol.Protocol):
                     main event of received data
         @param data: string data receive from twisted
         """
-        self._layer.dataReceived(data)
-    
+        try:
+            self._layer.dataReceived(data)
+        except Exception as exp:
+            self._layer.dataReceived(None)
+
     def connectionLost(self, reason):
         """
         @summary: Call from twisted engine when protocol is closed
